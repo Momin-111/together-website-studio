@@ -1,0 +1,28 @@
+kind = "web"
+previewPath = "/"
+title = "Business Website Studio"
+description = "A conversion-focused agency website for selling polished websites to small businesses, with service packages, selected work, process details, testimonials, and a quote request flow."
+version = "1.0.0"
+id = "artifacts/business-website-studio"
+router = "path"
+
+[[services]]
+name = "web"
+paths = [ "/" ]
+localPort = 18718
+
+[services.development]
+run = "pnpm --filter @workspace/business-website-studio run dev"
+
+[services.production]
+build = [ "pnpm", "--filter", "@workspace/business-website-studio", "run", "build" ]
+serve = "static"
+publicDir = "artifacts/business-website-studio/dist/public"
+
+[[services.production.rewrites]]
+from = "/*"
+to = "/index.html"
+
+[services.env]
+PORT = "18718"
+BASE_PATH = "/"
